@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+    <div class="col-md-12">
+      <div class="row" id="right">
+        <% if @videos == [] %>
+          <h3>この検索に一致する動画は見つかりませんでした<h3>
+        <% end %>
+        <% @videos.each do |video| %>
+              <div class="video">
+                <iframe src="https://www.youtube.com/embed/<%= video.youtube_url%>" frameborder="0" 
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe><br>
+                <%= video.title %><br>
+                <%= render 'videos/tag_list', tag_list: video.tag_list %><br>
+                <%= link_to '詳細', video %> 
+                <% if user_signed_in? && video.user_id == current_user.id %>
+                  <%= link_to '編集', edit_video_path(video) %>
+                <% end %>
+              </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mx-auto" style="width: 200px;">
+<%= paginate @videos %>
+</div>

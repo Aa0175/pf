@@ -1,0 +1,29 @@
+<div class="Top">
+  <%= link_to image_tag('top_logo.jpg'), '/' %>
+  
+  <div class="top_bar">
+    <span class="search_engine">
+      <div class="btn-group btn-group-toggle" id="options" data-toggle="buttons">
+        <label  type="radio" class="btn btn-secondary active shadow-none" onclick="clickBtn1()">
+          <input type="radio" name="options" id="title" autocomplete="off">キーワード
+        </label>
+        <label class="btn btn-secondary shadow-none" onclick="clickBtn2()">
+          <input type="radio" name="options" id="tag" autocomplete="off">タグ
+        </label>
+      </div>
+      <%= form_with url: search_videos_path, method: :get, local: true do |f| %>
+        <%= f.text_field :title, id: "cross_search"%>
+        <%= f.submit :search, value: "検索" %>
+      <% end %>
+      </span>
+  </div>
+</div>
+
+<script>
+function clickBtn1(){
+  document.getElementById("cross_search").setAttribute("name", "title");
+}
+function clickBtn2(){
+  document.getElementById("cross_search").setAttribute("name", "tag");
+}
+</script>

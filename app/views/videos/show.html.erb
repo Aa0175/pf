@@ -1,9 +1,10 @@
+<%= render 'layouts/top' %>
 <p id="notice"><%= notice %></p>
+<p id="title"><%= @video.title %></p>
+<p><%= render 'videos/tag_list', tag_list: @video.tag_list %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @video.title %>
+  <iframe width="854" height="480" src="https://www.youtube.com/embed/<%= @video.youtube_url %>" frameborder="0" 
+                                   allow="accelerometer; autoplay; encrypted-midia; gyroscope; picture-in-picture"
+                                   allowfullscreen><</iframe>
 </p>
-
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>

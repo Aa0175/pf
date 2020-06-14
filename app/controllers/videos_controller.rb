@@ -1,34 +1,32 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
 
-  # GET /videos
-  # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.all.page(params[:page]).per(20)
   end
 
-  # GET /videos/1
-  # GET /videos/1.json
-  def show
-  end
-
-  # GET /videos/new
   def new
-    @video = Video.new
+    if user_signed_in?
+      @video = Video.new
+    else
+      flash[:before_new] = true
+      redirect_to new_user_session_path
+    end
   end
-
-  # GET /videos/1/edit
-  def edit
-  end
-
-  # POST /videos
-  # POST /videos.json
+  
   def create
     @video = Video.new(video_params)
-
+    @video.user = current_user
+    
+    url = params[:video][:youtube_url]
+    url = url.last(11)
+    @video.youtube_url = url
+    
+    
     respond_to do |format|
       if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
+        format.html { redirect_to @video, notice: '動画を投稿しました' }
         format.json { render :show, status: :created, location: @video }
       else
         format.html { render :new }
@@ -37,12 +35,33 @@ class VideosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /videos/1
-  # PATCH/PUT /videos/1.json
+  def show
+  end
+  
+  def search
+    if params[:title].present?
+      @videos = Video.where('title LIKE ?', "%#{params[:title]}%").page(params[:page]).per(20)
+      render :show_search
+    elsif params[:tag].present?
+      @videos = Video.tagged_with(params[:tag], :wild => true, :any => true).page(params[:page]).per(20)
+      render :show_search
+    else
+      @videos = Video.all.page(params[:page]).per(20)
+      render :index
+    end
+  end
+  
+  def show_search
+    @videos
+  end
+  
+  def edit
+  end
+
   def update
     respond_to do |format|
       if @video.update(video_params)
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
+        format.html { redirect_to @video, notice: '動画が編集されました' }
         format.json { render :show, status: :ok, location: @video }
       else
         format.html { render :edit }
@@ -51,24 +70,20 @@ class VideosController < ApplicationController
     end
   end
 
-  # DELETE /videos/1
-  # DELETE /videos/1.json
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: '動画が削除されました' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_video
-      @video = Video.find(params[:id])
+      @video = Video.find(params[:id]) unless params[:id] == "search"
     end
 
-    # Only allow a list of trusted parameters through.
     def video_params
-      params.require(:video).permit(:title)
+      params.require(:video).permit(:title, :youtube_url, :tag_list)
     end
 end

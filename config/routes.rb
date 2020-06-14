@@ -3,8 +3,11 @@ Rails.application.routes.draw do
                                       sessions: 'users/sessions',
                                       passwords: 'users/passwords'}
   root  'videos#index'
-  resources :videos
+  resources :videos do
+    get :search, on: :collection
+  end
   resources :users
+  
   devise_scope :user do
     get "sign_in", :to => "users/sessions#new"
     get "sign_out", :to => "users/sessions#destroy"

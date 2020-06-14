@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @videos = Video.all.where(user_id: current_user.id).page(params[:page]).per(20)
   end
 
   # GET /users/1

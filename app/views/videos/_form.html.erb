@@ -1,22 +1,72 @@
-<%= form_with(model: video, local: true) do |form| %>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  
+<%= form_with(model: video, local: true) do |f| %>
   <% if video.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(video.errors.count, "error") %> prohibited this video from being saved:</h2>
-
       <ul>
-        <% video.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+      <% video.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  
+  <% if @video.id.nil? %>
+  <div id="form">
+    <div class="container">
+      <div id="form-row" class="row justify-content-center align-items-center">
+        <div id="form-column" class="col-md-6">
+          <div id="new_video-box" class="col-md-12">
+            <form id="form-form" class="form" action="" method="post">
+              <h2 class="text-center">動画を投稿する</h2>
+              <div class="form-group">
+                <%= f.label :title %>
+                <%= f.text_field :title, autofocus: true, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :tag_list, "タグ" %>
+                <%= text_field_tag 'video[tag_list]', @video.tag_list.join(','), "data-role" => "tagsinput", class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :youtube_url %>
+                <%= f.text_field :youtube_url, class: "form-control" %>  
+              </div>
+              <div class="actions">
+                <%= f.submit "投稿", class: "btn btn-secondary btn-md" %>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= link_to '戻る', videos_path, class: "text-right" %>
   </div>
+  <% else %>
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>  
+    </div>
+    
+    <div class="field">
+      <%= f.label :tag_list, "タグ" %>
+      <%= text_field_tag 'video[tag_list]', @video.tag_list.join(','), "data-role" => "tagsinput" %>  
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div class="field">
+        <p>
+          <iframe width="854" height="480" src="https://www.youtube.com/embed/<%= @video.youtube_url %>" frameborder="0" 
+                                          allow="accelerometer; autoplay; encrypted-midia; gyroscope; picture-in-picture"
+                                          allowfullscreen><</iframe>
+        </p>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
 <% end %>
