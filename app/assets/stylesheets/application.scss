@@ -1,0 +1,75 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap";
+
+// 検索エンジン関連
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
+  color: white;
+  background-color: #606060;
+  border-color: #606060;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #808080;
+  border-color: #808080;
+}
+
+.btn {
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+body {
+  margin-bottom: 100px;
+}
+
+.container-fluid {
+  margin-bottom: 10px;
+}
+
+.pagination>li>a {          
+  border: none;
+}
+
+// 以下入力フォーム
+#form .container #form-row #form-column #signup-box, #login-box, #user_edit-box, #new_video-box, #new_password-box{
+      margin-top: 60px;
+      max-width: 600px;
+      height: 550px;
+      border: 1px solid #9C9C9C;
+      background-color: #EAEAEA;
+      #form-form {
+        padding: 20px;
+      }
+      h2 {
+        margin-top: 20px;
+      } 
+}
+#login-box {
+  height: 420px;
+}
+#user_edit-box {
+  height: 600px;
+}
+#new_video-box{
+  height: 400px;
+}
+#new_password-box{
+  height: 320px;
+}

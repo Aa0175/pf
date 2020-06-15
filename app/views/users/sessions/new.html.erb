@@ -1,0 +1,39 @@
+<%- flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+<%- end -%> 
+<div id="form">
+    <div class="container">
+        <div id="form-row" class="row justify-content-center align-items-center">
+            <div id="form-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="form-form" class="form" action="" method="post">
+                        <h2 class="text-center">ログイン</h2>
+                        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                          <div class="form-group">
+                            <%= f.label :email %><br />
+                            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.label :password %><br />
+                            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                          </div>
+                          <% if devise_mapping.rememberable? %>
+                          <div class="form-group">
+                            <%= f.check_box :remember_me %>
+                            <%= f.label :remember_me, "ログイン状態を保持する", class: "text-secondary" %>
+                          </div>
+                          <% end %>
+                          <div class="actions">
+                            <%= f.submit "ログイン", class: "btn btn-secondary btn-md" %>
+                          </div>
+                          <div id="register-link" class="text-right">
+                            <%= render "users/shared/links" %>
+                          </div>  
+                        </div>
+                        <% end %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

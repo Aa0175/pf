@@ -1,0 +1,48 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
+<div id="form">
+    <div class="container">
+        <div id="form-row" class="row justify-content-center align-items-center">
+            <div id="form-column" class="col-md-6">
+                <div id="signup-box" class="col-md-12">
+                    <form id="form-form" class="form" action="" method="post">
+                        <h2 class="text-center">ユーザー情報登録</h2>
+                          <div class="form-group">
+                            <%= f.label :name, "アカウント名" %> <br />
+                            <%= f.text_field :name, class: "form-control" %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.label :email %><br />
+                            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.label :password %>
+                            <% if @minimum_password_length %>
+                              <em>(<%= @minimum_password_length %>文字以上)</em>
+                            <% end %><br />
+                            <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+                          </div>
+                          <div class="form-group">
+                            <%= f.label :password_confirmation %><br />
+                            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+                          </div>
+                          <% if devise_mapping.rememberable? %>
+                          <div class="form-group">
+                            <%= f.check_box :remember_me %>
+                            <%= f.label :remember_me, "ログイン状態を保持する", class: "text-secondary" %>
+                          </div>
+                          <% end %>
+                          <div class="actions">
+                            <%= f.submit "登録", class: "btn btn-secondary btn-md" %>
+                          </div>
+                          <div id="login-link" class="text-right">
+                            <%= render "users/shared/links" %>
+                          </div>  
+                        </div>
+                        <% end %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
