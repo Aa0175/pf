@@ -30,11 +30,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'kaminari'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 3.6'
+  gem 'factory_bot_rails'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
