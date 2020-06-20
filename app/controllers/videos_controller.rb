@@ -1,4 +1,5 @@
 class VideosController < ApplicationController
+  before_action :set_user,  only: [:index, :new, :show, :edit]
   before_action :set_video, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
 
@@ -79,6 +80,10 @@ class VideosController < ApplicationController
   end
 
   private
+    def set_user
+      @user = User.find(current_user.id) if user_signed_in?
+    end
+  
     def set_video
       @video = Video.find(params[:id]) unless params[:id] == "search"
     end

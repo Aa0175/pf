@@ -23,7 +23,7 @@ class Users::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     if @after_new
       flash[:notice] = "ログインに成功しました" 
-      new_post_path
+      new_video_path
     else
       root_path
     end

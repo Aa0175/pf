@@ -4,12 +4,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @videos = Video.all.where(user_id: current_user.id).page(params[:page]).per(20)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    correct_user
+    @videos = Video.all.where(user_id: current_user.id).page(params[:page]).per(20)
   end
 
   # GET /users/new
@@ -64,7 +65,15 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      if User.exists?(id: params[:id])
+        @user = User.find(params[:id])
+      else
+        redirect_to root_path
+      end
+    end
+    
+    def correct_user
+      redirect_to root_path unless current_user == @user
     end
 
     # Only allow a list of trusted parameters through.
