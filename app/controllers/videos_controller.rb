@@ -12,7 +12,7 @@ class VideosController < ApplicationController
       @video = Video.new
     else
       flash[:before_new] = true
-      redirect_to new_user_session_path
+      redirect_to new_user_session_url
     end
   end
   

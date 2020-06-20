@@ -36,12 +36,12 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         correct_user
       else
-        redirect_to root_path
+        redirect_to root_url
       end
     end
     
     def correct_user
-      redirect_to root_path unless @user && current_user == @user
+      redirect_to root_url unless @user && current_user == @user
     end
 
     def user_params
