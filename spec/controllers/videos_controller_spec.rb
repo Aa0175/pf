@@ -16,6 +16,7 @@ RSpec.describe VideosController, type: :controller do
   describe "with login" do
     before do
         login user
+        ログイン済みか確認
     end
     
     describe "when creating and saving a new video" do
@@ -25,8 +26,10 @@ RSpec.describe VideosController, type: :controller do
       end
     
       it "POST #create" do
+        タイトルとかが全部ある
         post :create
-        
+        ビデオが存在する
+        showにリダイレクトされる
       end
     end
   
