@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :set_user,           only: [:index, :new, :show, :edit, :search]
+  before_action :set_user,           only: [:index, :new, :show, :edit, :search, :destroy]
   before_action :set_video,          only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
 
@@ -74,7 +74,7 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to user_url, notice: '動画が削除されました' }
+      format.html { redirect_to user_url(@user), notice: '動画が削除されました' }
       format.json { head :no_content }
     end
   end
