@@ -74,7 +74,7 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: '動画が削除されました' }
+      format.html { redirect_to user_url, notice: '動画が削除されました' }
       format.json { head :no_content }
     end
   end

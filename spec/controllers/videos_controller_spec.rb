@@ -21,10 +21,12 @@ RSpec.describe VideosController, type: :controller do
     describe "when creating and saving a new video" do
       it "GET #new" do
         get :new
+        expect(response).to render_template(:new)
       end
     
       it "POST #create" do
-      
+        post :create
+        
       end
     end
   
